@@ -21,23 +21,20 @@ const Profile = () => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem("token");
-      console.log("Token:", token);
       setIsLoading(true);
-
 
       if (!token) {
         console.error("No token found!");
         return;
       }
 
-      const response = await axios.get("https://sonique-server.onrender.com/sonique/user/profile", {
+      const response = await axios.get("http://localhost:3000/sonique/user/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       setProfile(response.data);
-      console.log("Profile data:", response.data);
       setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch profile", error.response?.data || error.message);
@@ -46,7 +43,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    fetchProfile(); 
+    fetchProfile();
   }, []);
 
   const tracks = [
@@ -84,7 +81,6 @@ const Profile = () => {
     },
   ];
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProfile((prev) => ({
@@ -96,7 +92,6 @@ const Profile = () => {
     }));
   };
 
-
   const saveProfile = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -107,7 +102,8 @@ const Profile = () => {
       }
 
       const response = await axios.put(
-        "http://localhost:3000/sonique/user/profile/edit", profile.user,
+        "http://localhost:3000/sonique/user/profile/edit",
+        profile.user,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -116,7 +112,6 @@ const Profile = () => {
         }
       );
 
-      console.log("API response:", response.data);
       await fetchProfile();
       setIsModalOpen(false);
     } catch (error) {
@@ -314,7 +309,7 @@ const Profile = () => {
             <div className="relative mb-8">
               <input
                 type="email"
-                name="email" 
+                name="email"
                 value={profile?.user?.email}
                 onChange={handleChange}
                 aria-disabled="false"
@@ -331,7 +326,9 @@ const Profile = () => {
             <div className="relative mb-8">
               <input
                 type="gender"
-                name="gender" 
+                name="gender"
+                disabled
+                aria-disabled="false"
                 value={profile?.user?.gender}
                 onChange={handleChange}
                 className="w-full bg-gray-800 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-white/50 transition-shadow text-[15px] font-medium"

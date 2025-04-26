@@ -10,6 +10,7 @@ import ErrorPage from './Component/ErrorPage';
 import Home from './pages/Home';
 import PrivateRoute from './pages/PrivateRoute';
 import Profile from './Component/Profile';
+import Settings from './Component/Setting';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         <Route path="/sonique/user/signup" element={<UserSignup />} />
         <Route path="/sonique/user/forgot-password" element={<ForgotPassword />} />
         <Route path="/sonique/user/reset-password" element={<ResetPassword />} />
+
+        <Route path="/sonique/user/setting" element={<PrivateRoute><Settings /></PrivateRoute>} />
+
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Toaster />

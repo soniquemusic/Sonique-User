@@ -16,7 +16,7 @@ const ForgotPassword = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/sonique/user/forgot-password', { email });
+      const response = await axios.post('https://sonique-server.onrender.com/sonique/user/forgot-password', { email });
       setStatus({ message: response.data.message, error: '', success: true });
       setEmail('');
 

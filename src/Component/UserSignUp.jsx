@@ -57,7 +57,7 @@ const UserSignup = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/sonique/user/register', formData);
+      const response = await axios.post('https://sonique-server.onrender.com/sonique/user/register', formData);
       if (response.status === 201) {
         toast.success('User registered successfully!');
         setFormData({

@@ -28,7 +28,7 @@ const ResetPassword = () => {
         }
 
         try {
-            const response = await axios.post(`http://localhost:3000/sonique/user/reset-password?token=${token}`, { password });
+            const response = await axios.post(`https://sonique-server.onrender.com/sonique/user/reset-password?token=${token}`, { password });
             toast.success(response.data.message); // Success toast on successful password reset
             setTimeout(() => {
                 navigate('/sonique/user/login');

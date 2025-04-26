@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import toast from 'react-hot-toast';// Importing react-hot-toast
+import toast from 'react-hot-toast';
+import logo from '../../public/lightened_logo.png';
+import bgimg from '../../public/bg3.jpg';
 
 const UserSignup = () => {
   const [formData, setFormData] = useState({
@@ -85,7 +87,7 @@ const UserSignup = () => {
         <div
           className="w-full h-full bg-cover bg-center"
           style={{
-            backgroundImage: "url('../../../public/bg4.jpg')",
+            backgroundImage: `url(${bgimg})`, // Correct way to set background image
           }}
         ></div>
       </div>
@@ -93,7 +95,7 @@ const UserSignup = () => {
         <div className="max-w-md w-full p-8">
           <h1 className="text-3xl text-purple-500 font-bold text-center mb-6">
             <img
-              src="../../../public/lightened_logo.png"
+              src={logo}
               alt="logo"
               className="w-44 h-auto mx-auto sm:w-44 md:w-48 lg:w-56"
             />
@@ -171,8 +173,8 @@ const UserSignup = () => {
                 autoComplete="tel"
               />
             </div>
-            <button 
-              className={`w-full bg-[#405852] text-black font-semibold py-2 rounded-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
+            <button
+              className={`w-full bg-[#405852] text-black font-semibold py-2 rounded-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={loading}
             >
               {loading ? 'Signing Up...' : 'Sign Up'}

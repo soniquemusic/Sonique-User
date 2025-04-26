@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-hot-toast'; // Importing toast
+import { toast } from 'react-hot-toast'; 
+import logo from '../../public/lightened_logo.png';
+import bgimg from '../../public/bg4.jpg';
 
 const UserLogin = () => {
   const [email, setEmail] = useState('');
@@ -54,7 +56,7 @@ const UserLogin = () => {
         <div
           className="w-full h-full bg-cover bg-center"
           style={{
-            backgroundImage: "url('../../../public/bg3.jpg')",
+            backgroundImage: `url(${bgimg})`, // Correct way to set background image
           }}
         ></div>
       </div>
@@ -63,7 +65,7 @@ const UserLogin = () => {
         <div className="max-w-md w-full p-8">
           <h1 className="text-3xl text-purple-500 font-bold text-center mb-6">
             <img
-              src="../../../public/lightened_logo.png"
+              src={logo}
               alt="logo"
               className="w-44 h-auto mx-auto sm:w-44 md:w-48 lg:w-56"
             />

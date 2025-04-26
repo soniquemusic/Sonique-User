@@ -15,8 +15,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
+      <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path='/sonique/user/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
+
         <Route path="/sonique/user/login" element={<UserLogin />} />
         <Route path="/sonique/user/signup" element={<UserSignup />} />
         <Route path="/sonique/user/forgot-password" element={<ForgotPassword />} />

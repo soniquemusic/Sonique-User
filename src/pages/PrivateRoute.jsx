@@ -1,15 +1,10 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-// Protected route component
-const PrivateRoute = ({ element, ...rest }) => {
-    const token = localStorage.getItem('token'); 
+const PrivateRoute = ({ children }) => {
+    const token = localStorage.getItem('token');
 
-    if (!token) {
-        return <Navigate to="/sonique/user/login" />;
-    }
-
-    return element;
+    return token ? children : <Navigate to="/sonique/user/login" />;
 };
 
 export default PrivateRoute;

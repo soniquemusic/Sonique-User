@@ -147,7 +147,7 @@ const ArtistPlaylist = ({ artist, onClose }) => {
           />
           <div>
             <p className="text-white text-sm font-bold">PUBLIC PLAYLIST</p>
-            <h2 className="text-5xl font-bold text-white my-4">{currentSong.sAlbum}</h2>
+            <h2 className="text-2xl font-bold text-white my-4">{currentSong.sAlbum}</h2>
             <div className="flex items-center gap-4 text-sm">
               <span className="text-white">{artist.name}</span>
               <span className="text-gray-400">•</span>

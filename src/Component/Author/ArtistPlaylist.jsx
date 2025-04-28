@@ -118,15 +118,15 @@ const ArtistPlaylist = ({ artist, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-[#121212] z-50 flex flex-col">
-        <Navbar/>
+      <Navbar />
       {/* Header */}
       <div className="bg-gradient-to-b from-[#5e857c]/30 to-[#121212] p-6 flex items-center">
-        <button 
+        <button
           onClick={onClose}
           className="mr-4 text-white hover:bg-black/30 rounded-full p-2"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
+            <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
         </button>
         <div>
@@ -231,10 +231,10 @@ const ArtistPlaylist = ({ artist, onClose }) => {
       </div>
 
       {/* Player Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-[#282828] to-[#121212] border-t border-gray-800 p-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-[#282828] to-[#121212] border-t border-gray-800 p-2 sm:p-4">
         {/* Progress bar */}
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs text-gray-400 w-12 text-right">
+        <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+          <span className="text-xs text-gray-400 w-10 sm:w-12 text-right">
             {audioRef.current ? formatTime(audioRef.current.currentTime) : "0:00"}
           </span>
           <input
@@ -245,73 +245,73 @@ const ArtistPlaylist = ({ artist, onClose }) => {
             onChange={handleProgressChange}
             className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#5e857c]"
           />
-          <span className="text-xs text-gray-400 w-12">
+          <span className="text-xs text-gray-400 w-10 sm:w-12">
             {audioRef.current ? formatTime(audioRef.current.duration) : "0:00"}
           </span>
         </div>
 
-        <div className="flex items-center justify-between">
-          {/* Track info */}
-          <div className="flex items-center gap-3 w-1/4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0">
+          {/* Track info - Mobile top, Desktop left */}
+          <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-1/4 order-1 sm:order-none">
             <img
               src={currentSong.file_url || "/placeholder.svg"}
               alt={currentSong.sName}
-              className="w-14 h-14 object-cover"
+              className="w-10 h-10 sm:w-14 sm:h-14 object-cover"
             />
-            <div>
+            <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate">{currentSong.sName}</p>
               <p className="text-xs text-gray-400 truncate">{artist.name}</p>
             </div>
-            <button className="text-gray-400 hover:text-white ml-2">
+            <button className="text-gray-400 hover:text-white ml-1 sm:ml-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
               </svg>
             </button>
           </div>
 
-          {/* Player controls */}
-          <div className="flex items-center gap-4 w-2/4 justify-center">
-            <button className="text-gray-400 hover:text-white">
+          {/* Player controls - Mobile bottom, Desktop center */}
+          <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-2/4 justify-center order-3 sm:order-none">
+            <button className="text-gray-400 hover:text-white hidden sm:block">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
               </svg>
             </button>
             <button onClick={handlePrevious} className="text-gray-400 hover:text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polygon points="19 20 9 12 19 4 19 20"></polygon>
                 <line x1="5" y1="19" x2="5" y2="5"></line>
               </svg>
             </button>
             <button
               onClick={togglePlayPause}
-              className="bg-[#5e857c] rounded-full p-2 text-black hover:scale-105 transition-transform"
+              className="bg-[#5e857c] rounded-full p-1 sm:p-2 text-black hover:scale-105 transition-transform"
             >
               {isPlaying ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" sm:width="24" sm:height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="6" y="4" width="4" height="16"></rect>
                   <rect x="14" y="4" width="4" height="16"></rect>
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" sm:width="24" sm:height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
               )}
             </button>
             <button onClick={handleNext} className="text-gray-400 hover:text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polygon points="5 4 15 12 5 20 5 4"></polygon>
                 <line x1="19" y1="5" x2="19" y2="19"></line>
               </svg>
             </button>
-            <button className="text-gray-400 hover:text-white">
+            <button className="text-gray-400 hover:text-white hidden sm:block">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
             </button>
           </div>
 
-          {/* Volume controls */}
-          <div className="flex items-center gap-2 w-1/4 justify-end">
+          {/* Volume controls - Mobile hidden, Desktop right */}
+          <div className="hidden sm:flex items-center gap-2 w-1/4 justify-end order-2 sm:order-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             </svg>
@@ -321,7 +321,7 @@ const ArtistPlaylist = ({ artist, onClose }) => {
               max="100"
               value={volume}
               onChange={handleVolumeChange}
-              className="w-24 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#5e857c]"
+              className="w-20 sm:w-24 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#5e857c]"
             />
           </div>
         </div>

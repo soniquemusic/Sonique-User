@@ -115,6 +115,8 @@ const ArtistPlaylist = ({ artist, onClose }) => {
   if (!artist) return null;
 
   const currentSong = artist.songs[currentTrackIndex] || {};
+  console.log('Data..',currentSong);
+  
 
   return (
     <div className="fixed inset-0 bg-[#121212] z-50 flex flex-col">
@@ -144,8 +146,8 @@ const ArtistPlaylist = ({ artist, onClose }) => {
             className="w-48 h-48 object-cover shadow-lg"
           />
           <div>
-            <p className="text-white text-sm font-bold">PLAYLIST</p>
-            <h2 className="text-5xl font-bold text-white my-4">Popular Tracks</h2>
+            <p className="text-white text-sm font-bold">PUBLIC PLAYLIST</p>
+            <h2 className="text-5xl font-bold text-white my-4">{currentSong.sAlbum}</h2>
             <div className="flex items-center gap-4 text-sm">
               <span className="text-white">{artist.name}</span>
               <span className="text-gray-400">•</span>

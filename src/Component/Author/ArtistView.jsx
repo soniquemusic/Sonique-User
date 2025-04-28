@@ -13,7 +13,7 @@ const ArtistView = () => {
 
     const fetchArtists = useCallback(async () => {
         try {
-            const res = await fetch('http://localhost:3000/sonique/author/authors');
+            const res = await fetch('https://sonique-server.onrender.com/sonique/author/authors');
             if (!res.ok) throw new Error('Failed to fetch artists');
 
             const { authorsWithSongs = [] } = await res.json();

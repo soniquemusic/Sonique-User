@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-hot-toast'; 
+import { toast } from 'react-hot-toast';
 import logo from '../../public/lightened_logo.png';
 import bgimg from '../../public/bg4.jpg';
 
@@ -23,7 +23,7 @@ const UserLogin = () => {
     }
 
     try {
-      const response = await axios.post('https://sonique-server.onrender.com/sonique/user/login', { email, password });
+      const response = await axios.post('http://localhost:3000/sonique/user/login', { email, password });
 
       const { token, user } = response.data;
 

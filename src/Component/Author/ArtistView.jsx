@@ -30,7 +30,7 @@ const ArtistView = () => {
             }));
 
             setArtists(authorList);
-            
+
             if (artistId) {
                 const artist = authorList.find(a => a.id === artistId);
                 setSelectedArtist(artist || null);
@@ -58,15 +58,15 @@ const ArtistView = () => {
     return (
         <>
             {!artistId ? (
-                <ArtistList 
-                    artists={artists} 
-                    error={error} 
-                    onSelectArtist={handleSelectArtist} 
+                <ArtistList
+                    artists={artists}
+                    error={error}
+                    onSelectArtist={handleSelectArtist}
                 />
             ) : (
-                <ArtistPlaylist 
-                    artist={selectedArtist} 
-                    onClose={handleClosePlaylist} 
+                <ArtistPlaylist
+                    artist={selectedArtist}
+                    onClose={handleClosePlaylist}
                 />
             )}
         </>

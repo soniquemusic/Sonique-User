@@ -12,6 +12,7 @@ import PrivateRoute from './pages/PrivateRoute';
 import Profile from './Component/Profile';
 import Settings from './Component/Setting';
 import ArtistView from './Component/Author/ArtistView';
+import AlbumView from './Component/Album/AlbumView';
 
 function App() {
   return (
@@ -35,6 +36,11 @@ function App() {
         <Route path="/sonique/artist" element={<PrivateRoute><ArtistView /></PrivateRoute>} />
 
         <Route path="/sonique/artist/:artistId" element={<PrivateRoute><ArtistView /></PrivateRoute>} />
+
+        <Route path="/sonique/album" element={<PrivateRoute><AlbumView /></PrivateRoute>} />
+
+        <Route path="/sonique/album/:albumId" element={<PrivateRoute><AlbumView /></PrivateRoute> } />
+
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Toaster />

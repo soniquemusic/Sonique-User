@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { formatTime } from '../utils';
 import Navbar from '../Navbar';
 
-const AlbumPlaylist = ({ album, onClose }) => {
+const AlbumPlaylist = ({ album, onClose, isLoading }) => {
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -33,7 +33,7 @@ const AlbumPlaylist = ({ album, onClose }) => {
     }, [album, currentTrackIndex]);
 
     const togglePlayPause = useCallback(() => {
-        if (!album?.songs?.length) return;
+        if (!album?.songs?.length || isLoading) return;
 
         if (!audioRef.current) {
             setupAudio();
@@ -45,9 +45,11 @@ const AlbumPlaylist = ({ album, onClose }) => {
             audioRef.current.play().catch(e => console.error("Playback error:", e));
         }
         setIsPlaying(!isPlaying);
-    }, [isPlaying, setupAudio]);
+    }, [isPlaying, setupAudio, isLoading]);
 
     const handleTrackSelect = useCallback((index) => {
+        if (isLoading) return;
+        
         setCurrentTrackIndex(index);
         setIsPlaying(false);
         setProgress(0);
@@ -63,14 +65,17 @@ const AlbumPlaylist = ({ album, onClose }) => {
             setIsPlaying(true);
             audioRef.current?.play().catch(e => console.error("Playback error:", e));
         }, 100);
-    }, [album, volume]);
+    }, [album, volume, isLoading]);
 
     const handleNext = useCallback(() => {
+        if (isLoading) return;
         const nextIndex = (currentTrackIndex + 1) % album.songs.length;
         handleTrackSelect(nextIndex);
-    }, [currentTrackIndex, album, handleTrackSelect]);
+    }, [currentTrackIndex, album, handleTrackSelect, isLoading]);
 
     const handlePrevious = useCallback(() => {
+        if (isLoading) return;
+        
         if (audioRef.current?.currentTime > 3) {
             // If more than 3 seconds into song, restart current track
             audioRef.current.currentTime = 0;
@@ -79,10 +84,10 @@ const AlbumPlaylist = ({ album, onClose }) => {
             const prevIndex = (currentTrackIndex - 1 + album.songs.length) % album.songs.length;
             handleTrackSelect(prevIndex);
         }
-    }, [currentTrackIndex, album, handleTrackSelect]);
+    }, [currentTrackIndex, album, handleTrackSelect, isLoading]);
 
     const handleProgressChange = (e) => {
-        if (!audioRef.current) return;
+        if (!audioRef.current || isLoading) return;
         const newProgress = e.target.value;
         setProgress(newProgress);
         audioRef.current.currentTime = (newProgress / 100) * audioRef.current.duration;
@@ -104,23 +109,108 @@ const AlbumPlaylist = ({ album, onClose }) => {
     }, [volume]);
 
     useEffect(() => {
-        setupAudio();
+        if (!isLoading) {
+            setupAudio();
+        }
         return () => {
             audioRef.current?.pause();
             audioRef.current = null;
         };
-    }, [setupAudio]);
+    }, [setupAudio, isLoading]);
 
-    if (!album) return null;
+    const currentSong = album?.songs?.[currentTrackIndex] || {};
 
-    const currentSong = album.songs[currentTrackIndex] || {};
+    // Skeleton loading component
+    const SkeletonLoader = ({ className }) => (
+        <div className={`animate-pulse bg-gray-700 rounded ${className}`}></div>
+    );
 
-    console.log('....', currentSong.sAuthor);
+    if (isLoading || !album) {
+        return (
+            <div className="fixed inset-0 bg-[#121212] z-50 flex flex-col">
+                {/* Header Skeleton */}
+                <div className="bg-gradient-to-b from-[#5e857c]/30 to-[#121212] p-6 flex items-center">
+                    <SkeletonLoader className="w-8 h-8 rounded-full mr-4" />
+                    <div>
+                        <SkeletonLoader className="w-32 h-4 mb-2" />
+                        <SkeletonLoader className="w-20 h-3" />
+                    </div>
+                </div>
 
+                {/* Content Skeleton */}
+                <div className="flex-1 overflow-y-auto p-6">
+                    <div className="flex items-end gap-6 mb-8">
+                        <SkeletonLoader className="w-48 h-48" />
+                        <div className="flex-1">
+                            <SkeletonLoader className="w-24 h-3 mb-4" />
+                            <SkeletonLoader className="w-48 h-6 mb-6" />
+                            <SkeletonLoader className="w-32 h-3" />
+                        </div>
+                    </div>
+
+                    {/* Play Button Skeleton */}
+                    <div className="mb-8">
+                        <SkeletonLoader className="w-32 h-12 rounded-full" />
+                    </div>
+
+                    {/* Songs List Skeleton */}
+                    <div className="mb-24">
+                        <div className="grid grid-cols-12 gap-4 mb-4">
+                            {[...Array(5)].map((_, i) => (
+                                <React.Fragment key={i}>
+                                    <div className="col-span-1 flex justify-center">
+                                        <SkeletonLoader className="w-4 h-4" />
+                                    </div>
+                                    <div className="col-span-6 flex items-center gap-4">
+                                        <SkeletonLoader className="w-10 h-10" />
+                                        <div className="flex-1">
+                                            <SkeletonLoader className="w-3/4 h-4 mb-2" />
+                                            <SkeletonLoader className="w-1/2 h-3" />
+                                        </div>
+                                    </div>
+                                    <div className="col-span-3">
+                                        <SkeletonLoader className="w-16 h-3" />
+                                    </div>
+                                    <div className="col-span-2 flex justify-end">
+                                        <SkeletonLoader className="w-8 h-3" />
+                                    </div>
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Player Bar Skeleton */}
+                <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-[#282828] to-[#121212] border-t border-gray-800 p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                        <SkeletonLoader className="w-10 h-3" />
+                        <SkeletonLoader className="flex-1 h-1" />
+                        <SkeletonLoader className="w-10 h-3" />
+                    </div>
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="flex items-center gap-3 w-full sm:w-1/4">
+                            <SkeletonLoader className="w-14 h-14" />
+                            <div className="flex-1">
+                                <SkeletonLoader className="w-24 h-4 mb-1" />
+                                <SkeletonLoader className="w-16 h-3" />
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4 w-full sm:w-2/4 justify-center">
+                            {[...Array(5)].map((_, i) => (
+                                <SkeletonLoader key={i} className="w-8 h-8 rounded-full" />
+                            ))}
+                        </div>
+                        <div className="hidden sm:flex items-center gap-2 w-1/4 justify-end">
+                            <SkeletonLoader className="w-24 h-1" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="fixed inset-0 bg-[#121212] z-50 flex flex-col">
-            <Navbar />
             {/* Header */}
             <div className="bg-gradient-to-b from-[#5e857c]/30 to-[#121212] p-6 flex items-center">
                 <button
@@ -132,7 +222,6 @@ const AlbumPlaylist = ({ album, onClose }) => {
                     </svg>
                 </button>
                 <div>
-                    {/* <h1 className="text-2xl font-bold text-white">{album.artist}</h1> */}
                     <p className="text-gray-300">Album</p>
                 </div>
             </div>
@@ -149,8 +238,6 @@ const AlbumPlaylist = ({ album, onClose }) => {
                         <p className="text-white text-sm font-bold">PUBLIC ALBUM</p>
                         <h2 className="text-2xl font-bold text-white my-4">{album.artist}</h2>
                         <div className="flex items-center gap-4 text-sm">
-                            {/* <span className="text-white">{currentSong.sAuthor}</span>
-                            <span className="text-gray-400">•</span> */}
                             <span className="text-gray-400">{album.songs.length} songs</span>
                         </div>
                     </div>

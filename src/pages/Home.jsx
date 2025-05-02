@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import NavBar from '../Component/Navbar';
 import ArtistView from '../Component/Author/ArtistView';
 import AlbumView from '../Component/Album/AlbumView';
 
@@ -32,18 +30,8 @@ class ErrorBoundary extends React.Component {
 }
 
 const Home = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/sonique/user/login');
-    }
-  }, [navigate]);
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f0f0f] to-[#1c1c1c] text-white">
-      <NavBar />
+    <div >
       <main className="max-w-7xl mx-auto py-10">
         <ArtistView />
 

@@ -7,11 +7,13 @@ const AlbumView = () => {
     const [albums, setAlbums] = useState([]);
     const [error, setError] = useState(null);
     const [selectedAlbum, setSelectedAlbum] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const { albumId } = useParams();
     const navigate = useNavigate();
 
     const fetchAlbums = useCallback(async () => {
         try {
+            setIsLoading(true);
             const res = await fetch('https://sonique-server.onrender.com/sonique/album/albums');
             if (!res.ok) throw new Error('Failed to fetch albums');
 
@@ -39,6 +41,8 @@ const AlbumView = () => {
         } catch (err) {
             console.error('Fetch error:', err);
             setError('Failed to load albums');
+        } finally {
+            setIsLoading(false);
         }
     }, [albumId]);
 
@@ -63,11 +67,13 @@ const AlbumView = () => {
                     albums={albums}
                     error={error}
                     onSelectAlbum={handleSelectAlbum}
+                    isLoading={isLoading}
                 />
             ) : (
                 <AlbumPlaylist
                     album={selectedAlbum}
                     onClose={handleClosePlaylist}
+                    isLoading={isLoading}
                 />
             )}
         </>

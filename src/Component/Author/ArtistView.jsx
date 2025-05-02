@@ -8,11 +8,13 @@ const ArtistView = () => {
     const [artists, setArtists] = useState([]);
     const [error, setError] = useState(null);
     const [selectedArtist, setSelectedArtist] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const { artistId } = useParams();
     const navigate = useNavigate();
 
     const fetchArtists = useCallback(async () => {
         try {
+            setIsLoading(true);
             const res = await fetch('https://sonique-server.onrender.com/sonique/author/authors');
             if (!res.ok) throw new Error('Failed to fetch artists');
 
@@ -38,6 +40,8 @@ const ArtistView = () => {
         } catch (err) {
             console.error('Fetch error:', err);
             setError('Failed to load artists');
+        } finally {
+            setIsLoading(false);
         }
     }, [artistId]);
 
@@ -62,11 +66,13 @@ const ArtistView = () => {
                     artists={artists}
                     error={error}
                     onSelectArtist={handleSelectArtist}
+                    isLoading={isLoading}
                 />
             ) : (
                 <ArtistPlaylist
                     artist={selectedArtist}
                     onClose={handleClosePlaylist}
+                    isLoading={isLoading}
                 />
             )}
         </>

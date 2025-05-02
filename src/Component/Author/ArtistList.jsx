@@ -9,7 +9,7 @@ const ArtistList = ({ artists, error, onSelectArtist, isLoading }) => {
     if (isLoading) {
         return (
             <div className="p-6">
-                <h2 className="text-2xl font-bold text-[#5e857c] mb-6">Popular Artists</h2>
+                <h2 className="text-xl font-bold text-[#5e857c] mb-6">Popular Artists</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     {[...Array(6)].map((_, i) => (
                         <div key={i} className="animate-pulse">
@@ -24,7 +24,7 @@ const ArtistList = ({ artists, error, onSelectArtist, isLoading }) => {
 
     return (
         <div className="p-6">
-            <h2 className="text-2xl font-bold text-[#5e857c] mb-6">Popular Artists</h2>
+            <h2 className="text-xl font-bold text-[#5e857c] mb-6">Popular Artists</h2>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 {artists.map((artist) => (

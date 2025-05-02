@@ -108,12 +108,17 @@ const Navbar = () => {
             </div>
           </div>
 
-          <button
-            className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700"
-            onClick={() => navigate("/")}
-          >
-            <FaHome className="w-5 h-5" />
-          </button>
+          <div className="flex sm:hidden items-center gap-3 flex-grow max-w-md mx-2">
+            <button
+              className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700"
+              onClick={() => navigate("/")}
+            >
+              <FaHome className="w-5 h-5" />
+            </button>
+          </div>
+
+
+
 
           {/* Icons + Profile */}
           <div className="flex items-center gap-3">

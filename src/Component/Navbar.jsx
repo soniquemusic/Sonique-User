@@ -108,8 +108,18 @@ const Navbar = () => {
             </div>
           </div>
 
+          <button
+            className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700"
+            onClick={() => navigate("/")}
+          >
+            <FaHome className="w-5 h-5" />
+          </button>
+
           {/* Icons + Profile */}
           <div className="flex items-center gap-3">
+
+
+
             <button className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700">
               <FaBell className="w-5 h-5" />
             </button>

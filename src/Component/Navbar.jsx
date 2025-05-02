@@ -59,7 +59,7 @@ const Navbar = () => {
             <img
               src={logo || "/placeholder.svg"}
               alt="App Logo"
-              className="w-28 sm:w-32 cursor-pointer transition-transform duration-200 hover:scale-105"
+              className="w-36 sm:w-32 cursor-pointer transition-transform duration-200 hover:scale-105"
               onClick={() => navigate("/")}
             />
             <button

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ArtistView from '../Component/Author/ArtistView';
 import AlbumView from '../Component/Album/AlbumView';
+import SongView from '../Component/Song/SongView';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -36,6 +37,8 @@ const Home = () => {
         <ArtistView />
 
         <AlbumView />
+
+        <SongView />
       </main>
     </div>
   );

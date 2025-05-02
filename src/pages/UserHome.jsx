@@ -5,7 +5,6 @@ import AlbumView from '../Component/Album/AlbumView'
 import PrivateRoute from './PrivateRoute'
 import Home from './Home'
 import ArtistView from '../Component/Author/ArtistView'
-import ErrorPage from '../Component/ErrorPage'
 
 const UserHome = () => {
     return (
@@ -28,8 +27,7 @@ const UserHome = () => {
                     <Route path="/sonique/album" element={<PrivateRoute><AlbumView /></PrivateRoute>} />
 
                     <Route path="/sonique/album/:albumId" element={<PrivateRoute><AlbumView /></PrivateRoute>} />
-
-                    <Route path="*" element={<ErrorPage />} />
+                    
                 </Routes>
             </div>
         </>

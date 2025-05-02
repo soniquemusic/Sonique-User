@@ -32,7 +32,7 @@ class ErrorBoundary extends React.Component {
 const Home = () => {
   return (
     <div >
-      <main className="max-w-7xl mx-auto py-10">
+      <main className="max-w-7xl mx-auto">
         <ArtistView />
 
         <AlbumView />

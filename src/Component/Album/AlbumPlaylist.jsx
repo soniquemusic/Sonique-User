@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { formatTime } from '../utils';
-import Navbar from '../Navbar';
 
 const AlbumPlaylist = ({ album, onClose, isLoading }) => {
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -49,7 +48,7 @@ const AlbumPlaylist = ({ album, onClose, isLoading }) => {
 
     const handleTrackSelect = useCallback((index) => {
         if (isLoading) return;
-        
+
         setCurrentTrackIndex(index);
         setIsPlaying(false);
         setProgress(0);
@@ -75,7 +74,7 @@ const AlbumPlaylist = ({ album, onClose, isLoading }) => {
 
     const handlePrevious = useCallback(() => {
         if (isLoading) return;
-        
+
         if (audioRef.current?.currentTime > 3) {
             // If more than 3 seconds into song, restart current track
             audioRef.current.currentTime = 0;
@@ -127,7 +126,7 @@ const AlbumPlaylist = ({ album, onClose, isLoading }) => {
 
     if (isLoading || !album) {
         return (
-            <div className="fixed inset-0 bg-[#121212] z-50 flex flex-col">
+            <div className="bg-[#121212] flex flex-col">
                 {/* Header Skeleton */}
                 <div className="bg-gradient-to-b from-[#5e857c]/30 to-[#121212] p-6 flex items-center">
                     <SkeletonLoader className="w-8 h-8 rounded-full mr-4" />
@@ -210,7 +209,7 @@ const AlbumPlaylist = ({ album, onClose, isLoading }) => {
     }
 
     return (
-        <div className="fixed inset-0 bg-[#121212] z-50 flex flex-col">
+        <div className="bg-[#121212] flex flex-col">
             {/* Header */}
             <div className="bg-gradient-to-b from-[#5e857c]/30 to-[#121212] p-6 flex items-center">
                 <button

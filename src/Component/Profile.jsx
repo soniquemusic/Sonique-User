@@ -123,7 +123,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen w-full bg-black flex flex-col">
       {/* Profile Header */}
-      <div className="max-w-[80rem] w-full mx-auto bg-gradient-to-b from-gray-700 to-black p-4 sm:p-8 rounded-lg mb-8 sm:mb-30">
+      <div className="w-full mx-auto bg-gradient-to-b from-gray-700 to-black p-4 sm:p-8 rounded-lg mb-8 sm:mb-30">
         <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 pt-5">
           {/* Profile Image */}
           <div
@@ -188,7 +188,7 @@ const Profile = () => {
       </div>
 
       {/* Top Tracks Section */}
-      <div className="max-w-[80rem] w-full mx-auto px-4 sm:px-8 mb-20">
+      <div className="w-full px-4 sm:px-8 mb-20">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
           <div className="text-center sm:text-left mb-4 sm:mb-0">
             <h1 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold">Top tracks this month</h1>

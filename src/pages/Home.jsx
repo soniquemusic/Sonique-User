@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ArtistView from '../Component/Author/ArtistView';
 import AlbumView from '../Component/Album/AlbumView';
 import SongView from '../Component/Song/SongView';
+import Footer from '../Component/Footer';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -39,7 +40,9 @@ const Home = () => {
         <AlbumView />
 
         <SongView />
+
       </main>
+      <Footer/>
     </div>
   );
 };

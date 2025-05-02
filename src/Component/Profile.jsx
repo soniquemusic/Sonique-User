@@ -28,7 +28,7 @@ const Profile = () => {
         return;
       }
 
-      const response = await axios.get("http://localhost:3000/sonique/user/profile", {
+      const response = await axios.get("https://sonique-server.onrender.com/sonique/user/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

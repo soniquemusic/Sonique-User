@@ -141,16 +141,18 @@ const Navbar = () => {
                 <div className="absolute right-0 mt-2 w-40 bg-neutral-800 rounded-lg shadow-lg z-10 border border-neutral-700">
                   <button
                     className="w-full px-4 py-2 text-sm text-left text-white hover:bg-neutral-700"
-                    onClick={() => navigate("/login")}
+                    onClick={() => navigate("/sonique/user/profile")}
                   >
-                    Log in
+                    Profile
                   </button>
+
                   <button
                     className="w-full px-4 py-2 text-sm text-left text-white hover:bg-neutral-700"
-                    onClick={() => navigate("/signup")}
+                    onClick={() => navigate("/sonique/user/setting")}
                   >
-                    Sign up
+                    Setting
                   </button>
+
                   <button
                     className="w-full px-4 py-2 text-sm text-left text-white hover:bg-neutral-700"
                     onClick={handleLogout}

@@ -427,13 +427,6 @@ const Profile = () => {
 
             <div className="flex justify-end gap-4 mb-6">
               <button
-                onClick={closeModal}
-                className="text-[#5e857c] hover:text-white px-6 py-2.5 rounded-full font-medium border border-[#5e857c] hover:bg-[#5e857c] transition-colors"
-              >
-                Cancel
-              </button>
-
-              <button
                 onClick={saveProfile}
                 disabled={isLoading}
                 className={`bg-[#5e857c] hover:bg-[#5e857c]/90 text-white px-8 py-2.5 rounded-full font-semibold transition-colors ${isLoading ? "opacity-70 cursor-not-allowed" : ""

@@ -7,6 +7,7 @@ import Home from './Home'
 import ArtistView from '../Component/Author/ArtistView'
 import Settings from '../Component/Setting'
 import Profile from '../Component/Profile'
+import LikedSongs from './LikedSongs'
 
 const UserHome = () => {
     return (
@@ -23,6 +24,8 @@ const UserHome = () => {
                     <Route path="/sonique/user/setting" element={<PrivateRoute><Settings /></PrivateRoute>} />
 
                     <Route path="/sonique/artist" element={<PrivateRoute><ArtistView /></PrivateRoute>} />
+
+                    <Route path="/sonique/liked-songs" element={<PrivateRoute><LikedSongs /></PrivateRoute>} />
 
                     <Route path="/sonique/artist/:artistId" element={<PrivateRoute><ArtistView /></PrivateRoute>} />
 

@@ -25,7 +25,7 @@ const SongPlayer = ({
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-[#282828] to-[#121212] border-t border-gray-800 p-4">
+        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-[#282828] to-[#121212] border-t border-gray-800 p-4 z-50">
             <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs text-gray-400 w-12 text-right">
                     {formatTime(currentTime)}

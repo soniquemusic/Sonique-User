@@ -1,4 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import {
+  FaRegHeart,
+  FaHeart
+} from "react-icons/fa";
 import { formatTime } from '../utils';
 
 const ArtistPlaylist = ({ artist, onClose, isLoading }) => {
@@ -6,7 +10,36 @@ const ArtistPlaylist = ({ artist, onClose, isLoading }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(80); // Default volume
+  const [favorites, setFavorites] = useState([]);
   const audioRef = useRef(null);
+
+  // Load favorites from localStorage on component mount
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem('favoriteSongs');
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
+
+  // Toggle favorite status and update localStorage with full song data
+  const toggleFavorite = (song) => {
+    let updatedFavorites;
+    const isFavorite = favorites.some(fav => fav._id === song._id);
+
+    if (isFavorite) {
+      updatedFavorites = favorites.filter(fav => fav._id !== song._id);
+    } else {
+      updatedFavorites = [...favorites, song];
+    }
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favoriteSongs', JSON.stringify(updatedFavorites));
+  };
+
+  // Check if current song is favorited
+  const isFavorite = (songId) => {
+    return favorites.some(fav => fav._id === songId);
+  };
 
   const setupAudio = useCallback(() => {
     if (!artist?.songs?.length || isLoading) return;
@@ -314,8 +347,21 @@ const ArtistPlaylist = ({ artist, onClose, isLoading }) => {
               <div className="col-span-3 text-gray-400">
                 {song.album || "Single"}
               </div>
-              <div className="col-span-2 text-right text-gray-400">
-                {song.duration}
+              <div className="col-span-2 flex justify-end items-center gap-4">
+                <span className="text-gray-400">{song.duration}</span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(song);
+                  }}
+                  className="text-gray-400 hover:text-white"
+                >
+                  {isFavorite(song._id) ? (
+                    <FaHeart className="text-[#5e857c]" />
+                  ) : (
+                    <FaRegHeart />
+                  )}
+                </button>
               </div>
             </div>
           ))}
@@ -354,10 +400,15 @@ const ArtistPlaylist = ({ artist, onClose, isLoading }) => {
               <p className="text-sm font-medium text-white truncate">{currentSong.sName}</p>
               <p className="text-xs text-gray-400 truncate">{artist.name}</p>
             </div>
-            <button className="text-gray-400 hover:text-white ml-1 sm:ml-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-              </svg>
+            <button
+              onClick={() => toggleFavorite(currentSong)}
+              className="text-gray-400 hover:text-white ml-1 sm:ml-2"
+            >
+              {isFavorite(currentSong._id) ? (
+                <FaHeart size={18} className="text-[#5e857c]" />
+              ) : (
+                <FaRegHeart size={18} />
+              )}
             </button>
           </div>
 

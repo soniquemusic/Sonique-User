@@ -123,11 +123,11 @@ const Profile = () => {
   return (
     <div className="min-h-screen w-full bg-black flex flex-col">
       {/* Profile Header */}
-      <div className="w-full mx-auto bg-gradient-to-b from-gray-700 to-black p-4 sm:p-8 rounded-lg mb-8 sm:mb-30">
+      <div className="w-full mx-auto bg-gradient-to-b from-[#5e857c]/50 to-black p-4 sm:p-8 rounded-lg mb-8 sm:mb-30">
         <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 pt-5">
           {/* Profile Image */}
           <div
-            className="w-32 h-32 sm:w-50 sm:h-50 bg-gray-800 rounded-full flex flex-col items-center justify-center relative cursor-pointer"
+            className="w-32 h-32 sm:w-50 sm:h-50 bg-gradient-to-br from-[#5e857c]/90 to-black rounded-full flex flex-col items-center justify-center relative cursor-pointer"
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             onClick={openModal}
@@ -192,7 +192,7 @@ const Profile = () => {
         <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
           <div className="text-center sm:text-left mb-4 sm:mb-0">
             <h1 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold">Top tracks this month</h1>
-            <p className="text-gray-400 text-sm">Only visible to you</p>
+            <p className="text-white text-sm pt-2">Only visible to you</p>
           </div>
           <button className="text-gray-400 hover:text-white transition-colors text-sm font-bold">
             Show all
@@ -204,7 +204,7 @@ const Profile = () => {
           {tracks.map((track) => (
             <div
               key={track.id}
-              className="group flex flex-col-2 sm:flex-row items-center gap-4 rounded-md p-2 hover:bg-white/10 transition-colors cursor-pointer"
+              className="group flex flex-col-2 sm:flex-row items-center gap-4 rounded-md p-2 hover:bg-gray-800/30 transition-colors cursor-pointer"
             >
               {/* Track Number */}
               <span className="w-6 text-right text-base text-gray-400 group-hover:text-white">
@@ -224,7 +224,7 @@ const Profile = () => {
 
               {/* Track Title and Artists */}
               <div className="flex-1 min-w-0">
-                <h3 className="text-white text-base font-normal truncate">{track.title}</h3>
+                <h3 className="text-[#5e857c] text-base font-normal truncate">{track.title}</h3>
                 <p className="text-gray-400 text-sm truncate">{track.artists}</p>
               </div>
 
@@ -245,16 +245,16 @@ const Profile = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-in fade-in duration-200">
           <div
-            className="bg-gradient-to-b from-gray-700 rounded-xl w-full max-w-md p-6 shadow-2xl animate-in zoom-in-95 duration-200"
+            className="  to-black rounded-xl w-full max-w-md p-6 shadow-2xl animate-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-white text-2xl font-bold tracking-tight">Profile details</h2>
+              <h2 className="text-[#5e857c] text-2xl font-bold tracking-tight">Profile details</h2>
               <button
                 onClick={closeModal}
-                className="text-white/60 hover:text-white transition-colors rounded-full p-1 hover:bg-white/10"
+                className="text-[#5e857c]/80 hover:text-[#5e857c] transition-colors rounded-full p-1 hover:bg-[#5e857c]/10"
                 aria-label="Close modal"
               >
                 <svg
@@ -273,9 +273,9 @@ const Profile = () => {
 
             <div className="flex justify-center mb-8">
               <div className="relative group">
-                <div className="w-[140px] h-[140px] rounded-full bg-gray-800 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105">
+                <div className="w-[140px] h-[140px] rounded-full bg-gradient-to-br from-[#5e857c]/90 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 border border-[#5e857c]/20">
                   <svg
-                    className="w-16 h-16 text-[#727272] transition-opacity group-hover:opacity-80"
+                    className="w-16 h-16 text-[#5e857c]/50 transition-opacity group-hover:opacity-80"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -284,7 +284,7 @@ const Profile = () => {
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
                   </svg>
                 </div>
-                <div className="absolute inset-0 rounded-full cursor-pointer transition-opacity opacity-0 group-hover:opacity-100 bg-black/40 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full cursor-pointer transition-opacity opacity-0 group-hover:opacity-100 bg-[#5e857c]/30 flex items-center justify-center">
                   <span className="text-white text-sm font-medium">Choose photo</span>
                 </div>
               </div>
@@ -296,10 +296,10 @@ const Profile = () => {
                 name="fullName"
                 value={profile?.user?.fullName}
                 onChange={handleChange}
-                className="w-full bg-gray-800 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-white/50 transition-shadow text-[15px] font-medium"
+                className="w-full bg-[#5e857c]/10 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-[#5e857c]/50 transition-shadow text-[15px] font-medium border border-[#5e857c]/20"
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/60">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-[#5e857c]/60">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
@@ -313,10 +313,10 @@ const Profile = () => {
                 value={profile?.user?.email}
                 onChange={handleChange}
                 aria-disabled="false"
-                className="w-full bg-gray-800 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-white/50 transition-shadow text-[15px] font-medium"
+                className="w-full bg-[#5e857c]/10 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-[#5e857c]/50 transition-shadow text-[15px] font-medium border border-[#5e857c]/20"
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/60">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-[#5e857c]/60">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
@@ -331,10 +331,10 @@ const Profile = () => {
                 aria-disabled="false"
                 value={profile?.user?.gender}
                 onChange={handleChange}
-                className="w-full bg-gray-800 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-white/50 transition-shadow text-[15px] font-medium"
+                className="w-full bg-[#5e857c]/10 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-[#5e857c]/50 transition-shadow text-[15px] font-medium border border-[#5e857c]/20"
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/60">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-[#5e857c]/60">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
@@ -347,10 +347,10 @@ const Profile = () => {
                 name="mobileNumber"
                 value={profile?.user?.mobileNumber}
                 onChange={handleChange}
-                className="w-full bg-gray-800 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-white/50 transition-shadow text-[15px] font-medium"
+                className="w-full bg-[#5e857c]/10 text-white px-4 py-3 rounded-md outline-none ring-2 ring-transparent focus:ring-[#5e857c]/50 transition-shadow text-[15px] font-medium border border-[#5e857c]/20"
               />
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-white/60">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-[#5e857c]/60">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                 </svg>
@@ -358,12 +358,12 @@ const Profile = () => {
             </div>
 
             <div className="flex justify-start mb-6">
-              <button onClick={saveProfile} className="bg-white hover:bg-white/90 text-black px-8 py-2.5 rounded-full font-semibold">
+              <button onClick={saveProfile} className="bg-[#5e857c] hover:bg-[#5e857c]/90 text-white px-8 py-2.5 rounded-full font-semibold">
                 Save
               </button>
             </div>
 
-            <p className="text-[#727272] text-[13px] text-center leading-5 px-4">
+            <p className="text-[#5e857c]/70 text-[13px] text-center leading-5 px-4">
               By proceeding, you agree to give Spotify access to the image you choose to upload.
               <br />
               Please make sure you have the right to upload the image.

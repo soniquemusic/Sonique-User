@@ -1,39 +1,48 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FiSearch, FiChevronRight, FiEdit2, FiLock } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ToggleSwitch = React.memo(({ label, value, onChange }) => {
   const toggleClass = useMemo(
-    () => `w-10 h-6 flex items-center rounded-full p-1 cursor-pointer transition ${value ? 'bg-green-500' : 'bg-gray-700'}`,
+    () => `relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${value ? 'bg-[#5C817A]' : 'bg-gray-600'}`,
     [value]
   );
   const circleClass = useMemo(
-    () => `h-5 w-5 rounded-full bg-white transition ${value ? 'translate-x-4' : ''}`,
+    () => `inline-block h-5 w-5 transform rounded-full bg-white transition ${value ? 'translate-x-6' : 'translate-x-1'}`,
     [value]
   );
 
   return (
-    <div className="flex items-center justify-between mb-4">
-      <span className="text-gray-400">{label}</span>
-      <button className={toggleClass} onClick={onChange}>
-        <div className={circleClass}></div>
+    <div className="flex items-center justify-between py-3">
+      <span className="text-gray-300 text-sm font-medium">{label}</span>
+      <button
+        type="button"
+        className={toggleClass}
+        onClick={onChange}
+        aria-pressed={value}
+      >
+        <span className="sr-only">{label}</span>
+        <span className={circleClass} />
       </button>
     </div>
   );
 });
 
 const Settings = () => {
+  const navigate = useNavigate();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [toggles, setToggles] = useState({
     compactLibraryLayout: false,
-    nowPlayingPanel: false,
-    canvasVisuals: false,
-    showFollowerList: false,
+    nowPlayingPanel: true,
+    canvasVisuals: true,
+    showFollowerList: true,
   });
+  const inputRef = useRef(null);
 
   const handleToggle = useCallback((key) => {
     setToggles((prev) => ({ ...prev, [key]: !prev[key] }));
   }, []);
-
-  const inputRef = useRef(null);
 
   const toggleSearch = useCallback(() => {
     setIsSearchVisible((prev) => {
@@ -49,109 +58,178 @@ const Settings = () => {
     setIsSearchVisible(false);
   }, []);
 
-  return (
-    <div className="bg-black text-white min-h-screen">
-      <div className="max-w-[80rem] mx-auto p-4 sm:p-6 lg:p-8">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
-          <h1 className="text-2xl sm:text-3xl font-bold">Settings</h1>
-          <div className="w-full sm:w-1/3 flex justify-end">
-            <div className="relative">
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Search settings..."
-                className={`w-full p-2 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:border-gray-600 transition-all duration-300 ease-in-out ${isSearchVisible ? 'opacity-100 w-full' : 'opacity-0 w-0'
-                  }`}
-                onBlur={handleBlur}
-                style={{ transition: 'opacity 0.3s ease-in-out, width 0.3s ease-in-out' }}
-              />
-              <button
-                className={`p-2 text-white focus:outline-none absolute right-0 transition-all duration-300 ease-in-out ${isSearchVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'
-                  }`}
-                onClick={toggleSearch}
-                style={{ transition: 'opacity 0.3s ease-in-out' }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
+  const settingsSections = [
+    {
+      title: "Account",
+      items: [
+        {
+          label: "Edit login methods",
+          action: () => console.log("Edit login methods"),
+          icon: <FiEdit2 className="text-gray-400" />,
+          rightText: null
+        },
+        {
+          label: "Change your account password",
+          action: () => navigate('/sonique/user/change-password'),
+          icon: <FiLock className="text-gray-400" />,
+          rightText: null
+        }
+      ]
+    },
+    {
+      title: "Preferences",
+      items: [
+        {
+          label: "Language",
+          description: "Changes will be applied after restarting the app",
+          action: null,
+          rightText: "English (UK)",
+          isSelect: true
+        },
+        {
+          label: "Email notifications",
+          description: "Manage your email preferences",
+          action: null,
+          rightText: "Configure",
+          isSelect: false
+        }
+      ]
+    },
+    {
+      title: "Appearance",
+      items: [
+        {
+          label: "Use compact library layout",
+          isToggle: true,
+          toggleKey: "compactLibraryLayout"
+        },
+        {
+          label: "Show now-playing panel",
+          isToggle: true,
+          toggleKey: "nowPlayingPanel"
+        },
+        {
+          label: "Enable canvas visuals",
+          isToggle: true,
+          toggleKey: "canvasVisuals"
+        }
+      ]
+    },
+    {
+      title: "Privacy",
+      items: [
+        {
+          label: "Show follower lists",
+          isToggle: true,
+          toggleKey: "showFollowerList"
+        }
+      ]
+    }
+  ];
 
-        <div className="mb-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-semibold">Account</h2>
-          </div>
-          <div className="flex flex-col sm:flex-row items-center justify-between mt-2 space-y-2 sm:space-y-0 sm:space-x-4">
-            <p className="text-gray-400 flex-1">Edit login methods</p>
-            <button className="text-gray-400 border hover:text-gray-400 border-gray-500 hover:border-gray-600 px-4 py-2 rounded-full">
-              Edit
+  return (
+    <div className="min-h-screen bg-[#121212] text-gray-100">
+      {/* Header */}
+      <header className="sticky top-0 bg-[#121212] bg-opacity-90 backdrop-blur-sm p-4 border-b border-[#282828]">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-white">Settings</h1>
+
+          <div className="relative">
+            <AnimatePresence>
+              {isSearchVisible && (
+                <motion.div
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: 200 }}
+                  exit={{ opacity: 0, width: 0 }}
+                  className="origin-right"
+                >
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    placeholder="Search settings..."
+                    className="w-full bg-[#282828] text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-[#5C817A]"
+                    onBlur={handleBlur}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <button
+              onClick={toggleSearch}
+              className={`p-2 text-gray-400 hover:text-white transition-colors ${isSearchVisible ? 'absolute right-2 top-1/2 transform -translate-y-1/2' : ''}`}
+              aria-label="Search settings"
+            >
+              <FiSearch className="w-5 h-5" />
             </button>
           </div>
         </div>
+      </header>
 
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Language</h2>
-          <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
-            <p className="text-gray-400 flex-1 break-words">
-              Changes will be applied after restarting the app
-            </p>
-            <div className="flex-1 w-full sm:w-auto min-w-[150px]">
-              <select className="w-full p-2 bg-gray-800 text-gray-400 border border-gray-700 rounded-lg focus:outline-none focus:border-gray-600">
-                <option value="en">English (United Kingdom)</option>
-                <option value="en-US">English (United States)</option>
-                <option value="es">Spanish (Español)</option>
-                <option value="fr">French (Français)</option>
-                <option value="de">German (Deutsch)</option>
-                <option value="zh">Chinese (中文)</option>
-                <option value="hi">Hindi (हिन्दी)</option>
-                <option value="ar">Arabic (العربية)</option>
-                <option value="pt">Portuguese (Português)</option>
-              </select>
+      {/* Main Content */}
+      <main className="max-w-6xl mx-auto p-4 pb-24">
+        {settingsSections.map((section, sectionIndex) => (
+          <motion.section
+            key={sectionIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: sectionIndex * 0.05 }}
+            className="mb-8 bg-[#181818] rounded-xl overflow-hidden shadow-lg"
+          >
+            <div className="p-4 border-b border-[#282828]">
+              <h2 className="text-lg font-semibold text-white">{section.title}</h2>
             </div>
-          </div>
-        </div>
 
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Email</h2>
-          <p className="text-gray-400">English (United Kingdom)</p>
-        </div>
-        
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Your Library</h2>
-          <ToggleSwitch
-            label="Use compact library layout"
-            value={toggles.compactLibraryLayout}
-            onChange={() => handleToggle('compactLibraryLayout')}
-          />
-        </div>
+            <div className="divide-y divide-[#282828]">
+              {section.items.map((item, itemIndex) => (
+                <div key={itemIndex} className="px-4 py-3 hover:bg-[#282828] transition-colors">
+                  {item.isToggle ? (
+                    <ToggleSwitch
+                      label={item.label}
+                      value={toggles[item.toggleKey]}
+                      onChange={() => handleToggle(item.toggleKey)}
+                    />
+                  ) : (
+                    <div
+                      className="flex items-center justify-between cursor-pointer"
+                      onClick={item.action || undefined}
+                    >
+                      <div className="flex items-center">
+                        {item.icon && <span className="mr-3">{item.icon}</span>}
+                        <div>
+                          <p className="text-sm font-medium text-gray-100">{item.label}</p>
+                          {item.description && (
+                            <p className="text-xs text-gray-400">{item.description}</p>
+                          )}
+                        </div>
+                      </div>
 
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Display</h2>
-          <ToggleSwitch
-            label="Show the now-playing panel on click of play"
-            value={toggles.nowPlayingPanel}
-            onChange={() => handleToggle('nowPlayingPanel')}
-          />
-          <ToggleSwitch
-            label="Display short, looping visuals on tracks (Canvas)"
-            value={toggles.canvasVisuals}
-            onChange={() => handleToggle('canvasVisuals')}
-          />
-        </div>
-
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Social</h2>
-          <ToggleSwitch
-            label="Show my follower and following lists on my public profile"
-            value={toggles.showFollowerList}
-            onChange={() => handleToggle('showFollowerList')}
-          />
-        </div>
-      </div>
+                      <div className="flex items-center">
+                        {item.rightText && (
+                          <span className="text-sm text-gray-400 mr-2">
+                            {item.rightText}
+                          </span>
+                        )}
+                        {item.isSelect ? (
+                          <select
+                            className="bg-[#282828] text-gray-300 text-sm rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#5C817A]"
+                            defaultValue="en"
+                          >
+                            <option value="en">English (UK)</option>
+                            <option value="en-US">English (US)</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                          </select>
+                        ) : (
+                          <FiChevronRight className="text-gray-400" />
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.section>
+        ))}
+      </main>
     </div>
   );
 };

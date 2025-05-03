@@ -7,6 +7,7 @@ import UserSignup from './Component/UserSignUp';
 import ResetPassword from './Component/ResetPassword';
 import ForgotPassword from './Component/ForgotPassword';
 import UserHome from './pages/UserHome';
+import ChangePassword from './Component/ChangePassword';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Route path="/sonique/user/forgot-password" element={<ForgotPassword />} />
 
         <Route path="/sonique/user/reset-password" element={<ResetPassword />} />
+
+        <Route path="/sonique/user/change-password" element={<ChangePassword />} />
         
       </Routes>
       <Toaster />

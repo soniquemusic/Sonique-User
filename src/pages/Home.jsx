@@ -55,19 +55,7 @@ const Home = () => {
       <Footer />
 
       {/* Favorite Icon Fixed Bottom-Right with label on left side */}
-      <div className="fixed bottom-6 right-6 z-40 group flex items-center space-x-2">
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm bg-gray-800 text-white px-2 py-1 rounded shadow-md mr-2">
-          Favorite
-        </div>
-        <button
-          className="p-3 rounded-full shadow-lg transition duration-300 ease-in-out group-hover:brightness-90"
-          onClick={handleNavigate}
-          style={{ backgroundColor: '#5d847c' }}
-          title="Favorite"
-        >
-          <AiFillHeart size={28} color="#ffffff" />
-        </button>
-      </div>
+      
     </div>
   );
 };
